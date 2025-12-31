@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Nilai Mahasiswa — Versi Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary:#4f46e5;
+      --primary-light:#6366f1;
+      --success:#22c55e;
+      --danger:#ef4444;
+      --warning:#f59e0b;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+body{
+  font-family:"Poppins",sans-serif;
+  margin:0;
+  min-height:100vh;
+  position: relative;
+  background: #f8fafc;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background:
+    url('img/logo-uwks.png') center/280px no-repeat;
+  opacity: 0.12;
+  z-index: -1;
+}
+header{
+  background: linear-gradient(135deg,var(--primary),var(--primary-light));
+  color:#fff;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+    .container{max-width:1150px;margin:28px auto;padding:0 18px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}    
+.card{
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  border-radius:18px;
+  padding:20px 22px;
+  box-shadow:0 25px 40px rgba(0,0,0,.06);
+}
+    .card::after{content:"";position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;background:rgba(79,70,229,.08);}    
+    h2{margin:0 0 12px;font-size:20px;letter-spacing:.2px}
+    label{display:block;margin:10px 0 4px;font-size:13px;color:#111827}
+    input{width:100%;padding:8px 10px;border-radius:10px;border:1px solid #d1d5db;transition:.2s}
+    input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+    button{padding:9px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:600;letter-spacing:.2px;transition:.25s}
+    .primary{background:var(--primary);color:#fff}
+    .primary:hover{background:var(--primary-light);transform:translateY(-1px)}
+    .secondary{background:#e5e7eb;color:#111827}
+    .secondary:hover{background:#d1d5db}
+    .result p{margin:8px 0;font-size:14px}
+    .badge{display:inline-block;padding:4px 10px;border-radius:30px;font-weight:700;font-size:12px}
+    .badge.A{background:#dcfce7;color:#166534}
+    .badge.B{background:#dbeafe;color:#1e40af}
+    .badge.C{background:#fef9c3;color:#92400e}
+    .badge.D{background:#fee2e2;color:#7f1d1d}
+    .badge.E{background:#fee2e2;color:#7f1d1d}
+    .footer{margin-top:12px;font-size:12px;color:var(--muted)}
+    .stats{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .stats .box{background:#f9fafb;padding:10px 12px;border-radius:14px;text-align:center}
+    .stats .box span{display:block;font-size:12px;color:var(--muted)}
+    .stats .box strong{font-size:18px}
+    .toast{position:fixed;bottom:20px;right:20px;background:#111827;color:#fff;padding:12px 14px;border-radius:12px;box-shadow:0 20px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(12px);transition:.4s}
+    .toast.show{opacity:1;transform:none}
+ @media (max-width: 900px) {
+    header h1 {
+      font-size: 22px;
+    }
+
+    .container {
+      grid-template-columns: 1fr;
+      margin: 18px auto;
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* HP */
+  @media (max-width: 600px) {
+    body {
+      background-attachment: scroll;
+    }
+
+    header {
+      padding: 18px 14px;
+    }
+
+    header h1 {
+      font-size: 20px;
+    }
+
+    header div {
+      font-size: 13px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    label {
+      font-size: 12px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .stats {
+      grid-template-columns: 1fr;
+    }
+
+    .toast {
+      right: 50%;
+      transform: translateX(50%) translateY(12px);
+      width: calc(100% - 40px);
+      text-align: center;
+    }
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistem Penilaian Mahasiswa</h1>
+    <div style="opacity:.9;font-size:16px">Adriyan Firoos Syahputra</div>
+    <div style="opacity:.9;font-size:16px">24120022</div>
+  </header>
+
+  <div class="container">
+    <!-- Input Card -->
+    <div class="card">
+      <h2>Input Data</h2>
+
+      <label>NIM</label>
+      <input id="nim" placeholder="Masukkan NIM" />
+
+      <label>Nama Mahasiswa</label>
+      <input id="nama" placeholder="Masukkan Nama" />
+
+      <label>Nilai UTS</label>
+      <input id="uts" type="number" min="0" max="100" placeholder="0 - 100" />
+
+      <label>Nilai UAS</label>
+      <input id="uas" type="number" min="0" max="100" placeholder="0 - 100" />
+
+      <label>Nilai Tugas</label>
+      <input id="tugas" type="number" min="0" max="100" placeholder="0 - 100" />
+
+      <div style="margin-top:16px">
+        <button class="primary" onclick="proses()">Hitung Nilai</button>
+        <button class="secondary" onclick="resetForm()">Bersihkan</button>
+      </div>
+
+      <div class="footer">
+        UTS 30% • UAS 40% • Tugas 30% — (A: ≥85, B: 70–84, C: 60–69, D: 40–59, E: <40)
+      </div>
+    </div>
+
+    <!-- Output Card -->
+    <div class="card">
+      <h2>Hasil Perhitungan</h2>
+      <div class="result">
+        <p><strong>NIM :</strong> <span id="outNim">-</span></p>
+        <p><strong>Nama Mahasiswa :</strong> <span id="outNama">-</span></p>
+        <p><strong>Nilai UTS :</strong> <span id="outUTS">-</span></p>
+        <p><strong>Nilai UAS :</strong> <span id="outUAS">-</span></p>
+        <p><strong>Nilai Tugas :</strong> <span id="outTugas">-</span></p>
+        <p><strong>Index :</strong> <span id="outBadge">-</span></p>
+      </div>
+
+      <div class="stats">
+        <div class="box"><span>Nilai Akhir</span><strong id="total">0</strong></div>
+        <div class="box"><span>Status</span><strong id="status">-</strong></div>
+        <div class="box"><span>Prediksi</span><strong id="prediksi">-</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Data berhasil diproses!</div>
+
+  <script>
+    function toast(msg){
+      const t=document.getElementById('toast');
+      t.textContent=msg; t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),2200);
+    }
+
+    function hitungIndex(nilai){
+      if (nilai >= 85) return 'A';
+      if (nilai >= 70) return 'B';
+      if (nilai >= 60) return 'C';
+      if (nilai >= 40) return 'D';
+      return 'E';
+    }
+
+    function valid(v){
+      return !(v < 0 || v > 100 || isNaN(v));
+    }
+
+    function proses(){
+      const nim=document.getElementById('nim').value.trim();
+      const nama=document.getElementById('nama').value.trim();
+      const uts=parseFloat(document.getElementById('uts').value);
+      const uas=parseFloat(document.getElementById('uas').value);
+      const tugas=parseFloat(document.getElementById('tugas').value);
+
+      if(!nim || !nama || !valid(uts) || !valid(uas) || !valid(tugas)){
+        toast('Pastikan semua data terisi dan berada di rentang 0–100');
+        return;
+      }
+
+      const total=(uts*0.3 + uas*0.4 + tugas*0.3);
+      const index=hitungIndex(total);
+
+      document.getElementById('outNim').textContent=nim;
+      document.getElementById('outNama').textContent=nama;
+      document.getElementById('outUTS').textContent=uts;
+      document.getElementById('outUAS').textContent=uas;
+      document.getElementById('outTugas').textContent=tugas;
+
+      const badge = `<span class="badge ${index}">${index}</span>`;
+      document.getElementById('outBadge').innerHTML = badge;
+      document.getElementById('total').textContent = total.toFixed(2);
+      document.getElementById('status').textContent = total >= 60 ? 'Lulus' : 'Tidak Lulus';
+      document.getElementById('prediksi').textContent = total >= 80 ? 'Prestasi Baik' : (total >= 60 ? 'Perlu Konsisten' : 'Perlu Bimbingan');
+
+      toast('Data berhasil diproses!');
+    }
+
+    function resetForm(){
+      ['nim','nama','uts','uas','tugas'].forEach(id=>document.getElementById(id).value='');
+      ['outNim','outNama','outUTS','outUAS','outTugas'].forEach(id=>document.getElementById(id).textContent='-');
+      document.getElementById('outBadge').textContent='-';
+      document.getElementById('total').textContent='0';
+      document.getElementById('status').textContent='-';
+      document.getElementById('prediksi').textContent='-';
+      toast('Form dibersihkan');
+    }
+  </script>
+</body>
+</html>
